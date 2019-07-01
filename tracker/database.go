@@ -122,13 +122,17 @@ func GetAllEntries() error {
 	if err != nil {
 		return err
 	}
-	fmt.Println("|               ENTRY_ID               |    DATE   |                 TITLE                | TIME |                 NOTE                 |")
-	fmt.Println("-----------------------------------------------------------------------------------------------------------------------------------------")
+	fmt.Println("|               ENTRY_ID               |    DATE    |                 TITLE                | TIME |                 NOTE                 |")
+	fmt.Println("------------------------------------------------------------------------------------------------------------------------------------------")
 	for rows.Next() {
 		rows.Scan(&entryID, &month, &day, &year, &title, &timeModification, &note)
 
 		if len(title) > 35 {
 			title = title[:33] + "..."
+		} else if len(title) < 36 {
+			for len(title) < 36 {
+				title = title + " "
+			}
 		}
 
 		if len(note) > 35 {
@@ -143,8 +147,8 @@ func GetAllEntries() error {
 			}
 		}
 
-		fmt.Printf("| %s | %d-%d-%d | %s |  %d  | %s |\n", entryID, month, day, year, title, timeModification, note)
-		fmt.Println("-----------------------------------------------------------------------------------------------------------------------------------------")
+		fmt.Printf("| %s | %02d-%02d-%d | %s |  %d  | %s |\n", entryID, month, day, year, title, timeModification, note)
+		fmt.Println("------------------------------------------------------------------------------------------------------------------------------------------")
 		counter = counter + 1
 		totalTime = totalTime + timeModification
 	}

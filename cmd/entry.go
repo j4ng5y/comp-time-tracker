@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"log"
+	"os"
 	"strconv"
 	"time"
 
@@ -90,6 +91,14 @@ func newCompTimeEntry(ccmd *cobra.Command, args []string) {
 	E.EntryID = uuid.New().String()
 	E.Month = entryMonth
 	E.Day = entryDay
+	if entryYear <= 1989 {
+		log.Fatalf("the year %d is out of bounds; verify that your year is four digits long\n", entryYear)
+		os.Exit(1)
+	}
+	if entryYear >= 2050 {
+		log.Fatalf("the year %d is out of bounds; verify that your year is four digits long\n", entryYear)
+		os.Exit(1)
+	}
 	E.Year = entryYear
 	E.Title = entryTitle
 	E.TimeModification = entryTimeInMinutes
