@@ -7,7 +7,7 @@ import (
 )
 
 var (
-	version = "2019.07.01"
+	version = "2019.07.02"
 
 	compTimeTrackerCmd = &cobra.Command{
 		Use:     "cct",
