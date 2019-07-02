@@ -6,9 +6,10 @@ import (
 	"fmt"
 	"os"
 
-	_ "github.com/mattn/go-sqlite3"
+	_ "github.com/mattn/go-sqlite3" // Necessary for the "sqlite3" side effect
 )
 
+// EntryModel is type to hold data that can be directly added to our database
 type EntryModel struct {
 	EntryID          string
 	Month            int
@@ -20,9 +21,17 @@ type EntryModel struct {
 }
 
 var (
+	// Database is the active connection to our database
 	Database *sql.DB
 )
 
+// InitDB creates the file structure necessary for our database
+//
+// Arguments:
+//     None
+//
+// Returns:
+//     (error): returns an error if there is one, otherwise, nil
 func InitDB() error {
 	dbFileFolder := "CompTimeTracker"
 
@@ -50,6 +59,16 @@ func InitDB() error {
 	return nil
 }
 
+// Insert will insert data from EntryModel into our active database
+//
+// Arguments:
+//     None
+//
+// Augments:
+//     *EntryModel
+//
+// Returns:
+//     (error): returns an error if there is one, nil if not
 func (E *EntryModel) Insert() error {
 	d := Database
 	s, err := d.Prepare("INSERT INTO entries (entryID, month, day, year, title, timeModification, note) VALUES (?, ?, ?, ?, ?, ?, ?)")
@@ -61,6 +80,13 @@ func (E *EntryModel) Insert() error {
 	return nil
 }
 
+// RemoveEntry will remove an entry from out active database
+//
+// Arguments:
+//     ID (string): the UUID string of the entry to remove
+//
+// Returns:
+//     (error): returns an error if there is on, nil if not
 func RemoveEntry(ID string) error {
 	d := Database
 	q := fmt.Sprintf("DELETE FROM entries WHERE entryID like '%s'", ID)
@@ -73,6 +99,13 @@ func RemoveEntry(ID string) error {
 	return nil
 }
 
+// GetSingleEntry returns detailed information about a single entry
+//
+// Arguments:
+//     ID (string): the UUID string of the entry to display
+//
+// Returns:
+//     (error): returns an error if there is one, otherwise nil
 func GetSingleEntry(ID string) error {
 	var (
 		entryID          string
@@ -104,6 +137,13 @@ Note:  %s
 	return nil
 }
 
+// GetAllEntries returns a formatted list of database entries to stout
+//
+// Arguments:
+//      None
+//
+// Returns:
+//     (error): returns an error if there is one, nil if not
 func GetAllEntries() error {
 	var (
 		counter          int
@@ -122,6 +162,7 @@ func GetAllEntries() error {
 	if err != nil {
 		return err
 	}
+	fmt.Println("------------------------------------------------------------------------------------------------------------------------------------------")
 	fmt.Println("|               ENTRY_ID               |    DATE    |                 TITLE                | TIME |                 NOTE                 |")
 	fmt.Println("------------------------------------------------------------------------------------------------------------------------------------------")
 	for rows.Next() {
@@ -156,6 +197,14 @@ func GetAllEntries() error {
 	return nil
 }
 
+// GetTotal returns an int of total mintues of all entries (+ and -)
+//
+// Arguments:
+//     None
+//
+// Returns:
+//     (int): The total
+//     (error): returns an error if there is one, nil if not
 func GetTotal() (int, error) {
 	var (
 		timeModification int
