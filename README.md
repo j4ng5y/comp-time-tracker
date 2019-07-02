@@ -21,7 +21,7 @@ See building from source
 1. Have Go installed (you can get it [here](https://golang.org/dl/))
 2. Clone This Repository (`git clone https://github.com/j4ng5y/comp-time-tracker $GOROOT/src/github.com/j4ng5y/comp-time-tracker`)
 3. Navigate into the repository (`cd $GOROOT/src/github.com/j4ng5y/comp-time-tracker`)
-4. Build the tool (`CGO_ENABLE=1 go build -a installsuffix cgo -o bin/ctt`)
+4. Build the tool (`CGO_ENABLE=1 go build -a -installsuffix cgo -o bin/ctt`)
 5. Install the tool:
     * `ln -s $GOROOT/src/github.com/j4ng5y/comp-time-tracker/bin/ctt /usr/local/bin/ctt`
     or
