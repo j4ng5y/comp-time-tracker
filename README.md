@@ -6,11 +6,11 @@ This is a small little app that just helps me track my comp time while working o
 
 ### Linux
 
-`sudo curl -o /usr/local/bin/ctt https://github.com/j4ng5y/comp-time-tracker/releases/download/2019.07.01/ctt-2019.07.01-linux-amd64`
+`sudo curl -o /usr/local/bin/ctt https://github.com/j4ng5y/comp-time-tracker/releases/download/2019.07.02/ctt-2019.07.02-linux-amd64`
 
 ### OSX
 
-`sudo curl -o /usr/local/bin/ctt https://github.com/j4ng5y/comp-time-tracker/releases/download/2019.07.01/ctt-2019.07.01-darwin-amd64`
+`sudo curl -o /usr/local/bin/ctt https://github.com/j4ng5y/comp-time-tracker/releases/download/2019.07.02/ctt-2019.07.02-darwin-amd64`
 
 ### Windows
 
